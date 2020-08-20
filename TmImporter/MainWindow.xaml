@@ -45,19 +45,19 @@
         <StackPanel Grid.Row="4">
             <DockPanel>
                 <Label Content="Job" />
-                <TextBox />
+                <TextBox Text="{Binding Job}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="Client" />
-                <ComboBox ItemsSource="{Binding Clients}" />
+                <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding CurrentClient, Mode=TwoWay}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="Status" />
-                <ComboBox ItemsSource="{Binding Statuses}" />
+                <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding CurrentStatus, Mode=TwoWay}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="T/P" />
-                <TextBox />
+                <TextBox Text="{Binding TP}" />
             </DockPanel>
         </StackPanel>
 
@@ -71,7 +71,7 @@
 
         <DockPanel Grid.Row="6" >
             <Button Content="Browse" Command="{Binding BrowseXliffCommand}" />
-            <Button Content="Import" HorizontalAlignment="Right" />
+            <Button Content="Import" HorizontalAlignment="Right" Command="{Binding ImportXliffCommand}" />
         </DockPanel>
 
     </Grid>

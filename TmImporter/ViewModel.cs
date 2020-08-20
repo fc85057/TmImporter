@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 
@@ -16,14 +17,74 @@ namespace TmImporter
 
         private Sdltm tm;
         private Xliff xliff;
+        private XliffImporter importer;
         private string tmPath;
         private string xliffPath;
+
+        private string currentClient;
+        private string currentStatus;
+        private string job;
+        private string tp;
         
         public ICommand BrowseTmCommand { get; set; }
         public ICommand BrowseXliffCommand { get; set; }
+        public ICommand ImportXliffCommand { get; set; }
 
         public ObservableCollection<string> Clients { get; set; }
         public ObservableCollection<string> Statuses { get; set; }
+
+        public string Job
+        {
+            get
+            {
+                return job;
+            }
+            set
+            {
+                job = value;
+                RaisePropertyChanged("Job");
+            }
+        }
+
+        public string TP
+        {
+            get
+            {
+                return job;
+            }
+            set
+            {
+                job = value;
+                RaisePropertyChanged("TP");
+            }
+        }
+
+        public string CurrentClient
+        {
+            get
+            {
+                return currentClient;
+            }
+            set
+            {
+                currentClient = value;
+                RaisePropertyChanged("CurrentClient");
+            }
+        }
+
+
+        public string CurrentStatus
+        {
+            get
+            {
+                return currentStatus;
+            }
+            set
+            {
+                currentStatus = value;
+                RaisePropertyChanged("CurrentStatus");
+            }
+        }
 
         public Sdltm Tm
         {
@@ -75,12 +136,39 @@ namespace TmImporter
             LoadCommands();
             Clients = new ObservableCollection<string>();
             Statuses = new ObservableCollection<string>();
+            
         }
 
         void LoadCommands()
         {
             BrowseTmCommand = new RelayCommand(BrowseForTm, CanBrowseForTm);
             BrowseXliffCommand = new RelayCommand(BrowseForXliff, CanBrowseForXliff);
+            ImportXliffCommand = new RelayCommand(ImportXliff, CanImportXliff);
+        }
+
+        private bool CanImportXliff()
+        {
+            return (Tm != null && xliff != null);
+        }
+
+        private void ImportXliff()
+        {
+            try
+            {
+                Xliff[] xliffArray = { xliff };
+                importer = new XliffImporter();
+                //if (string.IsNullOrEmpty(TP))
+                //{
+                //    TP = "";
+                //}
+                importer.ImportXliff(Tm, xliffArray, Job, CurrentClient, CurrentStatus, TP);
+                MessageBox.Show("Done!");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Something went wrong : (\n" + exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            
         }
 
         private bool CanBrowseForXliff()
@@ -96,6 +184,8 @@ namespace TmImporter
             {
                 XliffPath = openFileDialog.FileName;
                 xliff = new Xliff(XliffPath);
+                //Random random = new Random();
+                //Job = random.Next(130000, 139000).ToString();
             }
         }
 
@@ -115,11 +205,20 @@ namespace TmImporter
                 foreach (string client in Tm.Clients)
                 {
                     Clients.Add(client);
+                    CurrentClient = Clients[0];
                 }
                 foreach (string status in Tm.Statuses)
                 {
                     Statuses.Add(status);
                 }
+
+                int indexOfEvsEnd = Statuses.IndexOf("EVS End");
+                if (indexOfEvsEnd == -1)
+                {
+                    indexOfEvsEnd = 0;
+                }
+                CurrentStatus = Statuses[indexOfEvsEnd];
+
             }
         }
 

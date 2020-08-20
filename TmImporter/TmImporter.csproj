@@ -37,6 +37,10 @@
     <Reference Include="Sdl.Core.Api">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.Core.Api.dll</HintPath>
     </Reference>
+    <Reference Include="Sdl.Core.Globalization, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c28cdb26c445c888, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.Core.Globalization.dll</HintPath>
+    </Reference>
     <Reference Include="Sdl.Core.LanguageProcessing">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.Core.LanguageProcessing.dll</HintPath>
     </Reference>
@@ -46,6 +50,15 @@
     <Reference Include="Sdl.Core.TM.ImportExport">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.Core.TM.ImportExport.dll</HintPath>
     </Reference>
+    <Reference Include="Sdl.Core.Utilities">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.Core.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Sdl.FileTypeSupport.Bilingual.SdlXliff.XmlSerializers">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.FileTypeSupport.Bilingual.SdlXliff.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Sdl.FileTypeSupport.Bilingual.WsXliff">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.FileTypeSupport.Bilingual.WsXliff.dll</HintPath>
+    </Reference>
     <Reference Include="Sdl.LanguagePlatform.TranslationMemory">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.LanguagePlatform.TranslationMemory.dll</HintPath>
     </Reference>
@@ -54,6 +67,9 @@
     </Reference>
     <Reference Include="Sdl.LanguagePlatform.TranslationMemoryImpl">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SDL\SDL Trados Studio\Studio15\Sdl.LanguagePlatform.TranslationMemoryImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Studio.AssemblyResolver, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Studio.AssemblyResolver.0.2.2\lib\net472\Studio.AssemblyResolver.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -115,6 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

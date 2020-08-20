@@ -11,6 +11,8 @@ namespace TmImporter
     {
         private FileBasedTranslationMemory tm;
 
+        public string Path;
+
         public FileBasedTranslationMemory TmAccess
         {
             get { return tm; }
@@ -85,6 +87,7 @@ namespace TmImporter
         {
             // need to load relevant properties from "internal" tm data
             tm = new FileBasedTranslationMemory(path);
+            Path = path;
         }
 
     }
