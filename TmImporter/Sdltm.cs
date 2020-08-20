@@ -7,13 +7,21 @@ using Sdl.LanguagePlatform.TranslationMemoryApi;
 
 namespace TmImporter
 {
-    class Sdltm
+    public class Sdltm
     {
         private FileBasedTranslationMemory tm;
 
         public FileBasedTranslationMemory TmAccess
         {
             get { return tm; }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return tm.Name;
+            }
         }
 
         public string SourceLanguage
@@ -53,6 +61,22 @@ namespace TmImporter
             get
             {
                 return tm.GetTranslationUnitCount();
+            }
+        }
+
+        public IList<string> Clients
+        {
+            get
+            {
+                return tm.FieldDefinitions["Client"].PicklistItemNames;
+            }
+        }
+
+        public IList<string> Statuses
+        {
+            get
+            {
+                return tm.FieldDefinitions["Status"].PicklistItemNames;
             }
         }
 

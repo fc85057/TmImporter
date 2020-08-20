@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:TmImporter"
         mc:Ignorable="d"
         Title="TM Importer" Height="350" Width="525">
+
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -20,11 +25,54 @@
 
         <DockPanel Grid.Row="0">
             <Label Content="TM:" DockPanel.Dock="Left" />
-            <TextBox DockPanel.Dock="Right" />
+            <TextBox DockPanel.Dock="Right" Name="TmPathBox" Text="{Binding TmPath}" />
         </DockPanel>
-        <Button Content="Browse" HorizontalAlignment="Left" Grid.Row="1" />
+        
+        <DockPanel Grid.Row="1">
+            <Button Content="Browse" HorizontalAlignment="Left" DockPanel.Dock="Left" Command="{Binding BrowseTmCommand}" />
+            <Button Content="Load TM" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" />
+        </DockPanel>
 
-        
-        
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="TM Name" />
+            <Label Content="{Binding Tm.Name}" />
+            <Label Content="Language Direction" />
+            <Label Content="{Binding Tm.LanguageDirection}" />
+        </StackPanel>
+
+        <Label Content="Fields" Grid.Row="3" />
+
+        <StackPanel Grid.Row="4">
+            <DockPanel>
+                <Label Content="Job" />
+                <TextBox />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Client" />
+                <ComboBox ItemsSource="{Binding Clients}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Status" />
+                <ComboBox ItemsSource="{Binding Statuses}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="T/P" />
+                <TextBox />
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5">
+            <Separator />
+            <DockPanel>
+            <Label Content="Sdlxliff" />
+            <TextBox Text="{Binding XliffPath}" />
+        </DockPanel>
+        </StackPanel>
+
+        <DockPanel Grid.Row="6" >
+            <Button Content="Browse" Command="{Binding BrowseXliffCommand}" />
+            <Button Content="Import" HorizontalAlignment="Right" />
+        </DockPanel>
+
     </Grid>
 </Window>

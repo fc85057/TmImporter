@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace TmImporter
 {
@@ -20,9 +23,12 @@ namespace TmImporter
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new ViewModel();
         }
+
     }
 }
