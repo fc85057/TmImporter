@@ -153,12 +153,7 @@ namespace TmImporter
             {
                 Xliff[] xliffArray = { xliff };
                 importer = new XliffImporter();
-                //if (string.IsNullOrEmpty(TP))
-                //{
-                //    TP = "";
-                //}
                 importer.ImportXliff(Tm, xliffArray, Job, CurrentClient, CurrentStatus, TP);
-                MessageBox.Show("Done!");
             }
             catch (Exception exception)
             {
@@ -180,8 +175,6 @@ namespace TmImporter
             {
                 XliffPath = openFileDialog.FileName;
                 xliff = new Xliff(XliffPath);
-                //Random random = new Random();
-                //Job = random.Next(130000, 139000).ToString();
             }
         }
 
