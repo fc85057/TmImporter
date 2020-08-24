@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -50,11 +46,11 @@ namespace TmImporter
         {
             get
             {
-                return job;
+                return tp;
             }
             set
             {
-                job = value;
+                tp = value;
                 RaisePropertyChanged("TP");
             }
         }
