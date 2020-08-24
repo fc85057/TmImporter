@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sdl.LanguagePlatform.TranslationMemory;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 
 namespace TmImporter
@@ -59,6 +60,42 @@ namespace TmImporter
             get
             {
                 return tm.GetTranslationUnitCount();
+            }
+        }
+
+        public IList<TmField> Fields
+        {
+            get
+            {
+                IList<TmField> tmFields = new List<TmField>();
+                foreach (FieldDefinition fieldDefinition in tm.FieldDefinitions)
+                {
+                    if (fieldDefinition.ValueType == FieldValueType.SinglePicklist || fieldDefinition.ValueType == FieldValueType.MultiplePicklist)
+                    {
+                        List<string> picklistValues = new List<string>();
+                        foreach(var picklistItem in fieldDefinition.PicklistItemNames)
+                        {
+                            picklistValues.Add(picklistItem);
+                        }
+                        TmField tmField = new TmField(fieldDefinition.Name, true, picklistValues);
+                        tmFields.Add(tmField);
+                    }
+                    else if (fieldDefinition.ValueType == FieldValueType.SingleString || fieldDefinition.ValueType == FieldValueType.MultipleString)
+                    {
+                        TmField tmField = new TmField(fieldDefinition.Name, false, null);
+                        tmFields.Add(tmField);
+                    }
+                }
+
+                return tmFields;
+                /*
+                IList<string> fieldDefinitions = new List<string>();
+                foreach (FieldDefinition fieldDefinition in tm.FieldDefinitions)
+                {
+                    fieldDefinitions.Add(fieldDefinition.Name);
+                }
+                return fieldDefinitions;
+                */
             }
         }
 

@@ -26,6 +26,7 @@ namespace TmImporter
             {
                 importer.Import(xliff.Path);
             }
+
         }
 
         private void GetImportSettings(ImportSettings importSettings, FileBasedTranslationMemory tm, string job, string client, string status, string tp)

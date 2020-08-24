@@ -97,6 +97,7 @@
     </ApplicationDefinition>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Sdltm.cs" />
+    <Compile Include="TmField.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Xliff.cs" />
     <Compile Include="XliffImporter.cs" />

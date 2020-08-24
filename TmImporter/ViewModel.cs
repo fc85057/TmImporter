@@ -25,9 +25,11 @@ namespace TmImporter
         public ICommand BrowseTmCommand { get; set; }
         public ICommand BrowseXliffCommand { get; set; }
         public ICommand ImportXliffCommand { get; set; }
+        public ICommand TestCommand { get; set; }
 
         public ObservableCollection<string> Clients { get; set; }
         public ObservableCollection<string> Statuses { get; set; }
+        public ObservableCollection<TmField> TmFields { get; set; }
 
         public string Job
         {
@@ -132,7 +134,7 @@ namespace TmImporter
             LoadCommands();
             Clients = new ObservableCollection<string>();
             Statuses = new ObservableCollection<string>();
-            
+            TmFields = new ObservableCollection<TmField>();
         }
 
         void LoadCommands()
@@ -140,6 +142,20 @@ namespace TmImporter
             BrowseTmCommand = new RelayCommand(BrowseForTm, CanBrowseForTm);
             BrowseXliffCommand = new RelayCommand(BrowseForXliff, CanBrowseForXliff);
             ImportXliffCommand = new RelayCommand(ImportXliff, CanImportXliff);
+            TestCommand = new RelayCommand(Test, CanTest);
+        }
+
+        bool CanTest()
+        {
+            return true;
+        }
+
+        void Test()
+        {
+            foreach (var entry in TmFields)
+            {
+                MessageBox.Show("Entry: " + entry.Name + "\n" + "Selected value: " + entry.SelectedValue);
+            }
         }
 
         private bool CanImportXliff()
@@ -154,6 +170,7 @@ namespace TmImporter
                 Xliff[] xliffArray = { xliff };
                 importer = new XliffImporter();
                 importer.ImportXliff(Tm, xliffArray, Job, CurrentClient, CurrentStatus, TP);
+                MessageBox.Show("Done");
             }
             catch (Exception exception)
             {
@@ -207,6 +224,16 @@ namespace TmImporter
                     indexOfEvsEnd = 0;
                 }
                 CurrentStatus = Statuses[indexOfEvsEnd];
+                
+                //foreach (var entry in Tm.Fields)
+                //{
+                //    MessageBox.Show(entry.Name + "\n" + entry.IsPicklist + "\n" + entry.PicklistValues);
+                //}
+                // Testing TM Fields
+                foreach (var entry in Tm.Fields)
+                {
+                    TmFields.Add(entry);
+                }
 
             }
         }
