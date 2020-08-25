@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -169,7 +170,9 @@ namespace TmImporter
             {
                 Xliff[] xliffArray = { xliff };
                 importer = new XliffImporter();
-                importer.ImportXliff(Tm, xliffArray, Job, CurrentClient, CurrentStatus, TP);
+                //importer.ImportXliff(Tm, xliffArray, Job, CurrentClient, CurrentStatus, TP);
+                TmField[] fieldsArray = TmFields.ToArray();
+                importer.ImportXliff(Tm, xliffArray, fieldsArray);
                 MessageBox.Show("Done");
             }
             catch (Exception exception)
@@ -224,12 +227,13 @@ namespace TmImporter
                     indexOfEvsEnd = 0;
                 }
                 CurrentStatus = Statuses[indexOfEvsEnd];
-                
+
                 //foreach (var entry in Tm.Fields)
                 //{
                 //    MessageBox.Show(entry.Name + "\n" + entry.IsPicklist + "\n" + entry.PicklistValues);
                 //}
                 // Testing TM Fields
+                TmFields.Clear();
                 foreach (var entry in Tm.Fields)
                 {
                     TmFields.Add(entry);

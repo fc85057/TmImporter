@@ -29,6 +29,58 @@ namespace TmImporter
 
         }
 
+        public void ImportXliff(Sdltm tm, Xliff[] xliffs, TmField[] tmFields)
+        {
+            TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.TmAccess.LanguageDirection);
+            GetImportSettings(importer.ImportSettings, tm, tmFields);
+
+            foreach (Xliff xliff in xliffs)
+            {
+                importer.Import(xliff.Path);
+            }
+        }
+
+        private void GetImportSettings(ImportSettings importSettings, Sdltm tm, TmField[] tmFields)
+        {
+            importSettings.CheckMatchingSublanguages = false;
+            importSettings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
+            ConfirmationLevel[] levels = { ConfirmationLevel.ApprovedSignOff, ConfirmationLevel.ApprovedTranslation, ConfirmationLevel.Translated };
+            importSettings.ConfirmationLevels = levels;
+            importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.KeepMostRecent;
+
+            FieldValues fieldValuesCollection = new FieldValues();
+            foreach (TmField fieldInTm in tm.Fields)
+            {
+                foreach (TmField tmField in tmFields)
+                {
+                    if (fieldInTm.Name == tmField.Name)
+                    {
+
+                        if (string.IsNullOrEmpty(tmField.SelectedValue))
+                            continue;
+
+                        FieldDefinition fieldDefinition = tm.TmAccess.FieldDefinitions[tmField.Name];
+                        FieldValue fieldValue = fieldDefinition.CreateValue();
+                        FieldValueType fieldValueType = fieldDefinition.ValueType;
+
+                        if (fieldValueType == FieldValueType.SingleString || fieldValueType == FieldValueType.SinglePicklist)
+                        {
+                            fieldValue.Parse(tmField.SelectedValue);
+                        }
+                        else if (fieldValueType == FieldValueType.MultipleString || fieldValueType == FieldValueType.MultiplePicklist)
+                        {
+                            fieldValue.Add(tmField.SelectedValue);
+                        }
+
+                        fieldValuesCollection.Add(fieldValue);
+
+                    }
+                }
+            }
+
+            importSettings.ProjectSettings = fieldValuesCollection;
+        }
+
         private void GetImportSettings(ImportSettings importSettings, FileBasedTranslationMemory tm, string job, string client, string status, string tp)
         {
             importSettings.CheckMatchingSublanguages = false;
